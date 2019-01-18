@@ -61,7 +61,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   <script>
-   var route_prefix = "{{ url(config('lfm.url_prefix')) }}";
+   var route_prefix = "{{ url(config('hfm.url_prefix')) }}";
   </script>
 
   <!-- CKEditor init -->
@@ -114,7 +114,7 @@
   </script>
 
   <script>
-    {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
+    {!! \File::get(base_path('vendor/huynp/h-filemanager/public/js/stand-alone-button.js')) !!}
   </script>
   <script>
     $('#lfm').filemanager('image', {prefix: route_prefix});

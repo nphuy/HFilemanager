@@ -78,8 +78,8 @@
     renderResizedValues($("#width_display").val(), $("#height_display").val());
 
     $("#resize").resizable({
-      aspectRatio: {{ config('lfm.resize_aspectRatio')?'true':'false' }},
-      @if(config('lfm.resize_containment'))
+      aspectRatio: {{ config('hfm.resize_aspectRatio')?'true':'false' }},
+      @if(config('hfm.resize_containment'))
       containment: "#containment",
       @endif
       handles: "n, e, s, w, se, sw, ne, nw",

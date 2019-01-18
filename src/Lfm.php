@@ -32,9 +32,10 @@ class Lfm
         return $this->translateFromUtf8($this->request->input($key));
     }
 
-    public function config($key)
+    public function conf2ig($key)
     {
-        return $this->config->get('lfm.' . $key);
+        //var_dump($this->config);
+        return $this->config->get('hfm.' . $key);
     }
 
     /**
@@ -61,7 +62,7 @@ class Lfm
     {
         $type = $this->currentLfmType();
 
-        return $this->config->get('lfm.folder_categories.' . $type . '.folder_name', 'files');
+        return $this->config->get('hfm.folder_categories.' . $type . '.folder_name', 'files');
     }
 
     /**
@@ -74,7 +75,7 @@ class Lfm
         $lfm_type = 'file';
 
         $request_type = lcfirst(str_singular($this->input('type') ?: ''));
-        $available_types = array_keys($this->config->get('lfm.folder_categories') ?: []);
+        $available_types = array_keys($this->config->get('hfm.folder_categories') ?: []);
 
         if (in_array($request_type, $available_types)) {
             $lfm_type = $request_type;
@@ -86,7 +87,7 @@ class Lfm
     public function getDisplayMode()
     {
         $type_key = $this->currentLfmType();
-        $startup_view = $this->config->get('lfm.folder_categories.' . $type_key . '.startup_view');
+        $startup_view = $this->config->get('hfm.folder_categories.' . $type_key . '.startup_view');
 
         $view_type = 'grid';
         $target_display_type = $this->input('show_list') ?: $startup_view;
@@ -100,7 +101,7 @@ class Lfm
 
     public function getUserSlug()
     {
-        $config = $this->config->get('lfm.user_folder_name');
+        $config = $this->config->get('hfm.user_folder_name');
 
         if (is_callable($config)) {
             return call_user_func($config);
@@ -125,7 +126,7 @@ class Lfm
         if ($type === 'user') {
             $folder = $this->getUserSlug();
         } else {
-            $folder = $this->config->get('lfm.shared_folder_name');
+            $folder = $this->config->get('hfm.shared_folder_name');
         }
 
         // the slash is for url, dont replace it with directory seperator
@@ -134,7 +135,7 @@ class Lfm
 
     public function getThumbFolderName()
     {
-        return $this->config->get('lfm.thumb_folder_name');
+        return $this->config->get('hfm.thumb_folder_name');
     }
 
     public function getFileIcon($ext)
@@ -149,12 +150,12 @@ class Lfm
 
     public function availableMimeTypes()
     {
-        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.valid_mime');
+        return $this->config->get('hfm.folder_categories.' . $this->currentLfmType() . '.valid_mime');
     }
 
     public function maxUploadSize()
     {
-        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.max_size');
+        return $this->config->get('hfm.folder_categories.' . $this->currentLfmType() . '.max_size');
     }
 
     /**
@@ -164,7 +165,7 @@ class Lfm
      */
     public function allowMultiUser()
     {
-        return $this->config->get('lfm.allow_multi_user') === true;
+        return $this->config->get('hfm.allow_multi_user') === true;
     }
 
     /**
@@ -179,7 +180,7 @@ class Lfm
             return true;
         }
 
-        return $this->config->get('lfm.allow_share_folder') === true;
+        return $this->config->get('hfm.allow_share_folder') === true;
     }
 
     /**
@@ -242,8 +243,8 @@ class Lfm
     public static function routes()
     {
         $middleware = [ CreateDefaultFolder::class, MultiUser::class ];
-        $as = 'unisharp.lfm.';
-        $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
+        $as = 'huynp.94.';
+        $namespace = '\\Huynp\\HFilemanager\\Controllers\\';
 
         Route::group(compact('middleware', 'as', 'namespace'), function () {
 

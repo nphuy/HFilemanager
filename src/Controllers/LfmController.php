@@ -83,7 +83,9 @@ class LfmController extends Controller
      */
     public function applyIniOverrides()
     {
-        $overrides = config('lfm.php_ini_overrides');
+        $overrides = config('hfm.php_ini_overrides');
+        var_dump($overrides);
+        exit();
         if ($overrides && is_array($overrides) && count($overrides) === 0) {
             return;
         }

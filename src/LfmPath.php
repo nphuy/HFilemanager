@@ -248,18 +248,18 @@ class LfmPath
 
         $new_file_name = $this->getNewName($file);
 
-        if ($this->setName($new_file_name)->exists() && !config('lfm.over_write_on_duplicate')) {
+        if ($this->setName($new_file_name)->exists() && !config('hfm.over_write_on_duplicate')) {
             return $this->error('file-exist');
         }
 
-        if (config('lfm.should_validate_mime', false)) {
+        if (config('hfm.should_validate_mime', false)) {
             $mimetype = $file->getMimeType();
             if (false === in_array($mimetype, $this->helper->availableMimeTypes())) {
                 return $this->error('mime') . $mimetype;
             }
         }
 
-        if (config('lfm.should_validate_size', false)) {
+        if (config('hfm.should_validate_size', false)) {
             // size to kb unit is needed
             $file_size = $file->getSize() / 1000;
             if ($file_size > $this->helper->maxUploadSize()) {
@@ -275,9 +275,9 @@ class LfmPath
         $new_file_name = $this->helper
             ->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
 
-        if (config('lfm.rename_file') === true) {
+        if (config('hfm.rename_file') === true) {
             $new_file_name = uniqid();
-        } elseif (config('lfm.alphanumeric_filename') === true) {
+        } elseif (config('hfm.alphanumeric_filename') === true) {
             $new_file_name = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_file_name);
         }
 
@@ -313,7 +313,7 @@ class LfmPath
         // generate cropped image content
         $this->setName($file_name)->thumb(true);
         $image = Image::make($original_image->get())
-            ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200));
+            ->fit(config('hfm.thumb_img_width', 200), config('hfm.thumb_img_height', 200));
 
         $this->storage->put($image->stream()->detach());
     }

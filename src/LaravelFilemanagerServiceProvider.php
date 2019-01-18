@@ -22,8 +22,8 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/views', 'laravel-filemanager');
 
         $this->publishes([
-            __DIR__ . '/config/lfm.php' => base_path('config/lfm.php'),
-        ], 'lfm_config');
+            __DIR__ . '/config/hfm.php' => base_path('config/hfm.php'),
+        ], 'hfm_config');
 
         $this->publishes([
             __DIR__.'/../public' => public_path('vendor/laravel-filemanager'),
@@ -37,7 +37,7 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
             __DIR__.'/Handlers/LfmConfigHandler.php' => base_path('app/Handlers/LfmConfigHandler.php'),
         ], 'lfm_handler');
 
-        if (config('lfm.use_package_routes')) {
+        if (config('hfm.use_package_routes')) {
             Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
                 \Huynp\HFilemanager\Lfm::routes();
             });
